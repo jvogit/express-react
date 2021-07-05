@@ -1,11 +1,22 @@
 import React from 'react';
-import { useState } from 'react';
-import './App.css';
 import Routes from './Routes';
+import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
+import { LightTheme, BaseProvider } from 'baseui';
+import "./App.css";
+
+const engine = new Styletron();
 
 function App() {
+
   return (
-    <div>express-react</div>
+    <StyletronProvider value={engine}>
+      <BaseProvider theme={LightTheme}>
+        <div className="App">
+          <Routes />
+        </div>
+      </BaseProvider>
+    </StyletronProvider>
   );
 }
 

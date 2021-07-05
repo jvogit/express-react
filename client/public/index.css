@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+section {
+  margin: 1rem 5%;
+}
+
+@media screen and (min-width: 44em) {
+  section {
+    margin: 1rem 12%;
+  }
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './components/App';
 import { createHttpLink, ApolloClient, from, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
