@@ -5,12 +5,12 @@ import Login from '../pages/Login';
 import Me from '../pages/Me';
 import Register from '../pages/Register';
 import Footer from './footer/Footer';
-import DesktopNavBar from './navbar/DesktopNavBar';
+import AppNavBar from './navbar/AppNavBar';
 
 const Routes: React.FC<{}> = () => {
   return (
     <BrowserRouter>
-      <DesktopNavBar />
+      <AppNavBar />
       <div>
         <Switch>
           <Route exact path="/" component={Home} />

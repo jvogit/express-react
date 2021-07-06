@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Button } from 'baseui/button';
 import ValidatedFormInput from "./ValidatedFormInput";
+import { useRegisterMutation } from "../../generated/graphql";
+import { useHistory } from "react-router-dom";
 
 const RegisterForm: React.FC<{}> = () => {
 
@@ -9,6 +11,8 @@ const RegisterForm: React.FC<{}> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [register] = useRegisterMutation();
+  const history = useHistory();
 
   const validation = {
     username: (usernameInput: string) => true,
@@ -33,7 +37,19 @@ const RegisterForm: React.FC<{}> = () => {
       return;
     }
 
-    console.log("form submitted", username, email, password);
+    const res = await register({
+      variables: {
+        options: {
+          email,
+          username,
+          password
+        }
+      }
+    });
+
+    console.log(res);
+
+    history.push("/login");
   }
 
   return (

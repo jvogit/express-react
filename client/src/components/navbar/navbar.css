@@ -2,3 +2,19 @@ a {
   text-decoration: inherit;
   color: inherit;
 }
+.desktop {
+  display: none;
+}
+
+.mobile {
+  display: block;
+}
+
+@media screen and (min-width: 44em) {
+  .desktop {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+}

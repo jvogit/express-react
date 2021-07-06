@@ -7,7 +7,7 @@ import {
   ALIGN,
 } from "baseui/header-navigation";
 import { HeadingXSmall } from "baseui/typography";
-import { Button } from "baseui/button";
+import { Button, KIND } from "baseui/button";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import "./navbar.css"
 import { setAccessToken } from "../../utils/accessToken";
@@ -37,6 +37,17 @@ const DesktopNavBar: React.FC<{}> = () => {
             <HeadingXSmall $style={{ margin: "0" }}>express-react</HeadingXSmall>
           </Link>
         </StyledNavigationItem>
+        {
+          data?.me &&
+          <StyledNavigationItem>
+            <Button
+              onClick={() => history.push("/me")}
+              kind={KIND.minimal}
+            >
+              Me
+            </Button>
+          </StyledNavigationItem>    
+        }
       </StyledNavigationList>
       <StyledNavigationList $align={ALIGN.center} />
       <StyledNavigationList $align={ALIGN.right}>
@@ -58,7 +69,7 @@ const DesktopNavBar: React.FC<{}> = () => {
                   await logout();
                   setAccessToken("");
                   // workaround for unhandled promise issue in Apollo
-                  await client.resetStore().catch(err => {});
+                  await client.resetStore().catch(err => { });
                 }}
               >
                 Logout
