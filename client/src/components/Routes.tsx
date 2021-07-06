@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../pages/Home';
+import Login from '../pages/Login';
+import Me from '../pages/Me';
+import Register from '../pages/Register';
 import Footer from './footer/Footer';
 import DesktopNavBar from './navbar/DesktopNavBar';
 
@@ -11,6 +14,9 @@ const Routes: React.FC<{}> = () => {
       <div>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/me" component={Me} />
         </Switch>
       </div>
       <Footer />

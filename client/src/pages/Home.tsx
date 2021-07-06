@@ -2,8 +2,7 @@ import React from "react";
 import { StyledBody } from "baseui/card";
 import { H1, H2, Paragraph1 } from "baseui/typography";
 
-const Home = () => {
-
+const Home: React.FC<{}> = () => {
   return (
     <section>
       <H1>express-react</H1>

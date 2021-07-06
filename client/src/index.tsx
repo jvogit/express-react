@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import { createHttpLink, ApolloClient, from, InMemoryCache } from '@apollo/client';
+import { createHttpLink, ApolloClient, from, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { getAccessToken, setAccessToken } from './utils/accessToken';
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
-  credentials: "include",
+  uri: "/graphql",
+  credentials: "include"
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = getAccessToken()
+  const token = getAccessToken();
 
   return {
     headers: {
@@ -29,7 +29,7 @@ const tokenLink = new TokenRefreshLink({
     const accessToken = getAccessToken();
 
     if (!accessToken) {
-      return true;
+      return false;
     }
 
     try {
@@ -67,8 +67,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById('root')
 );
