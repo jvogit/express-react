@@ -9,8 +9,8 @@ import {
 import { HeadingXSmall } from "baseui/typography";
 import { Button, KIND } from "baseui/button";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
-import "./navbar.css"
 import { setAccessToken } from "../../utils/accessToken";
+import "./navbar.css"
 
 const DesktopNavBar: React.FC<{}> = () => {
   const { data, loading, error } = useMeQuery();

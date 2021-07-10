@@ -21,7 +21,7 @@ const MobileNavBar: React.FC<{}> = () => {
       <StyledNavigationList $align={ALIGN.left}>
         <StyledNavigationItem>
           <Link to="/" style={{ textDecoration: "inherit", color: "inherit", }}>
-            <HeadingXSmall $style={{ margin: "0" }} >Spring React</HeadingXSmall>
+            <HeadingXSmall $style={{ margin: "0" }} >express-react</HeadingXSmall>
           </Link>
         </StyledNavigationItem>
       </StyledNavigationList>
