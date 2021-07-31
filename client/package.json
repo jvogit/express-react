@@ -3,42 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.3.20",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
+    "@apollo/client": "^3.4.1",
+    "@chakra-ui/react": "^1.0.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.2.1",
+    "@testing-library/user-event": "^12.0.2",
+    "@types/jest": "^25.0.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/styletron-engine-atomic": "^1.1.1",
-    "@types/styletron-react": "^5.0.3",
-    "@types/styletron-standard": "^2.0.2",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
     "apollo-link-token-refresh": "^0.3.2",
-    "baseui": "^9.116.2",
+    "framer-motion": "^4.0.0",
     "graphql": "^15.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^3.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "styletron-engine-atomic": "^1.4.8",
-    "styletron-react": "^6.0.1",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "typescript": "^3.9.5",
+    "web-vitals": "^0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "gen": "graphql-codegen --config codegen.yml"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -53,13 +48,10 @@
     ]
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.6",
-    "@graphql-codegen/typescript": "1.22.4",
-    "@graphql-codegen/typescript-operations": "1.18.3",
-    "@graphql-codegen/typescript-react-apollo": "2.3.0",
+    "@graphql-codegen/cli": "^1.21.8",
+    "@graphql-codegen/typescript": "^1.23.0",
     "@types/graphql": "^14.5.0",
     "@types/jwt-decode": "^3.1.0",
-    "@types/react-router-dom": "^5.1.7"
-  },
-  "proxy": "http://localhost:4000"
+    "@types/react-router-dom": "^5.1.8"
+  }
 }

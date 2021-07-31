@@ -1,10 +1,12 @@
+import { ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { ColorModeScript } from "@chakra-ui/react";
+import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import jwtDecode from 'jwt-decode';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import { createHttpLink, ApolloClient, from, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { TokenRefreshLink } from 'apollo-link-token-refresh';
-import jwtDecode from 'jwt-decode';
+import reportWebVitals from './reportWebVitals';
 import { getAccessToken, setAccessToken } from './utils/accessToken';
 
 const httpLink = createHttpLink({
@@ -67,10 +69,16 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <ColorModeScript />
+    <ApolloProvider client={client}>
       <App />
-    </React.StrictMode>
-  </ApolloProvider>,
-  document.getElementById('root')
-);
+    </ApolloProvider>
+  </React.StrictMode>,
+  document.getElementById("root"),
+)
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()
