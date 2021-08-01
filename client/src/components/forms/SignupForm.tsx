@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Formik, Form, Field } from "formik";
-import { Button, FormControl, FormLabel, Input, FormErrorMessage, Checkbox } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, FormErrorMessage, Checkbox, useToast } from '@chakra-ui/react';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
+import { useRegisterMutation } from '../../generated/graphql';
 
 const SignupForm: React.FC<{}> = () => {
 
@@ -23,6 +25,10 @@ const SignupForm: React.FC<{}> = () => {
       .oneOf([true], 'You must agree to the terms and conditions')
   });
 
+  const history = useHistory();
+  const [register] = useRegisterMutation();
+  const toast = useToast();
+
   return (
     <Formik
       initialValues={{
@@ -33,8 +39,32 @@ const SignupForm: React.FC<{}> = () => {
         termsAndConditions: false
       }}
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
+      onSubmit={async (values, actions) => {
         console.log("submitted");
+        const response = await register({
+          variables: {
+            options: {
+              username: values.username,
+              email: values.email,
+              password: values.password,
+            }
+          }
+        });
+
+        console.log(response);
+
+        if (response.data?.register.errors) {
+          console.log("errors", response.data.register.errors);
+          toast({
+            status: "error",
+            description: response.data.register.errors.map(error => error.message).join("\n"),
+            duration: 5000
+          });
+        } else {
+          history.push("/login");
+        }
+
+        actions.setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (

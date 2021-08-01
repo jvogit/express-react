@@ -36,7 +36,7 @@ export type Mutation = {
 
 
 export type MutationRegisterArgs = {
-  options: UsernamePasswordInput;
+  options: RegisterInput;
 };
 
 
@@ -48,6 +48,12 @@ export type MutationLoginArgs = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
+};
+
+export type RegisterInput = {
+  email: Scalars['String'];
+  username: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type User = {
@@ -63,12 +69,6 @@ export type UserResponse = {
   __typename?: 'UserResponse';
   errors?: Maybe<Array<FieldError>>;
   user?: Maybe<User>;
-};
-
-export type UsernamePasswordInput = {
-  email: Scalars['String'];
-  username: Scalars['String'];
-  password: Scalars['String'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -101,7 +101,7 @@ export type LogoutMutation = (
 );
 
 export type RegisterMutationVariables = Exact<{
-  options: UsernamePasswordInput;
+  options: RegisterInput;
 }>;
 
 
@@ -204,7 +204,7 @@ export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const RegisterDocument = gql`
-    mutation Register($options: UsernamePasswordInput!) {
+    mutation Register($options: RegisterInput!) {
   register(options: $options) {
     user {
       id

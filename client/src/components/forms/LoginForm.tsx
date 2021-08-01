@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, useToast } from '@chakra-ui/react';
 import { Field, Form, Formik } from "formik";
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { setAccessToken } from '../../utils/accessToken';
 
 const LoginForm: React.FC<{}> = () => {
   const [login] = useLoginMutation();
+  const toast = useToast();
   const history = useHistory();
 
   return (
@@ -35,8 +36,15 @@ const LoginForm: React.FC<{}> = () => {
           }
         });
 
-        if (response.errors || !response.data || !response.data.login.accessToken) {
-          console.log("errors", response.errors);
+        if (!response.data || response.data.login.errors || !response.data.login.accessToken) {
+          console.log("errors", response.data?.login.errors);
+          toast({
+            title: "Error",
+            description: response.data?.login.errors?.map(e => e.message).join("\n"),
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         } else {
           setAccessToken(response.data.login.accessToken);
           history.push("/profile");
