@@ -1,9 +1,13 @@
-import { Center, Container, Spinner, Text } from "@chakra-ui/react";
+import { Center, Spinner } from "@chakra-ui/react";
 import * as React from 'react';
+import { useHistory } from "react-router-dom";
+import ProfileCard from "../components/profiles/ProfileCard";
 import { useMeQuery } from '../generated/graphql';
 
 const Profile: React.FC<{}> = () => {
   const { data, loading } = useMeQuery();
+  const history = useHistory();
+
   if (loading) {
     return (
       <Center
@@ -14,13 +18,20 @@ const Profile: React.FC<{}> = () => {
     );
   }
 
+  if (!data || !data.me) {
+    history.push("/login");
+
+    return (<div/>);
+  }
+
   return (
-    <Container
+    <Center
       py={{ base: 20, md: 36 }}
-      maxW="6xl"
+      maxW={{ base: "sm", md: "md" }}
+      width="full"
     >
-      <Text>Hello, {data?.me?.username}!</Text>
-    </Container>
+      <ProfileCard user={data.me}/>
+    </Center>
   );
 };
 

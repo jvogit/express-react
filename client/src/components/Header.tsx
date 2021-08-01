@@ -69,7 +69,10 @@ const Header: React.FC<{}> = (props) => {
               <ColorModeSwitcher />
             </ButtonGroup>
           ) : (
-            <ProfileMenu user={data.me}/>
+            <ButtonGroup>
+              <ColorModeSwitcher />
+              <ProfileMenu user={data.me} />
+            </ButtonGroup>
           )
         }
       </Box>
