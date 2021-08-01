@@ -26,7 +26,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "typescript": "^3.9.5",
-    "web-vitals": "^0.2.2"
+    "web-vitals": "^0.2.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

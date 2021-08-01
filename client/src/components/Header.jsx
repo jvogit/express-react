@@ -1,4 +1,5 @@
 import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box, Button, Flex, Heading, Link, Stack, useDisclosure
 } from "@chakra-ui/react";
@@ -26,7 +27,7 @@ const Header = (props) => {
       {...props}
     >
       <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" letterSpacing={"tighter"}>
+        <Heading as={RouterLink} to="/" size="lg" letterSpacing={"tighter"}>
           express-react
         </Heading>
       </Flex>
@@ -53,12 +54,16 @@ const Header = (props) => {
         mt={{ base: 4, md: 0 }}
       >
         <Button
+          as={RouterLink}
+          to="/signup"
           variant="outline"
           mr={2}
         >
           Sign up
         </Button>
         <Button
+          as={RouterLink}
+          to="/login"
           variant="outline"
         >
           Login
