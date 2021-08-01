@@ -1,21 +1,17 @@
 import { CloseIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router-dom";
 import {
-  Box, Button, Flex, Heading, Link, Stack, useDisclosure
+  Box, Button, ButtonGroup, Flex, Heading, Link, Stack, useDisclosure
 } from "@chakra-ui/react";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { useMeQuery } from "../generated/graphql";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-// import { HamburgerIcon } from "@chakra-ui/icons";
+import ProfileMenu from "./profiles/ProfileMenu";
 
-// Note: This code could be better,
-// so I'd recommend you to understand how I solved and you could write yours better :)
-// Good luck! 🍀
-
-// Update: Check these awesome headers from Choc UI 👇
-// https://choc-ui.tech/docs/elements/headers
-const Header = (props) => {
+const Header: React.FC<{}> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
+  const { data, loading } = useMeQuery({ notifyOnNetworkStatusChange: true });
 
   return (
     <Flex
@@ -33,7 +29,7 @@ const Header = (props) => {
       </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
-        {isOpen ? <CloseIcon/> : <HamburgerIcon/>}
+        {isOpen ? <CloseIcon /> : <HamburgerIcon />}
       </Box>
 
       <Stack
@@ -53,24 +49,29 @@ const Header = (props) => {
         display={{ base: isOpen ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        <Button
-          as={RouterLink}
-          to="/signup"
-          variant="outline"
-          onClick={onClose}
-          mr={2}
-        >
-          Sign up
-        </Button>
-        <Button
-          as={RouterLink}
-          to="/login"
-          variant="outline"
-          onClick={onClose}
-        >
-          Login
-        </Button>
-        <ColorModeSwitcher/>
+        {
+          (loading || !data || !data.me) ? (
+            <ButtonGroup variant="outline">
+              <Button
+                as={RouterLink}
+                to="/signup"
+                onClick={onClose}
+              >
+                Sign up
+              </Button>
+              <Button
+                as={RouterLink}
+                to="/login"
+                onClick={onClose}
+              >
+                Login
+              </Button>
+              <ColorModeSwitcher />
+            </ButtonGroup>
+          ) : (
+            <ProfileMenu user={data.me}/>
+          )
+        }
       </Box>
     </Flex>
   );

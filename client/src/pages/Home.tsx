@@ -10,6 +10,7 @@ const Home: React.FC<{}> = () => {
       textAlign="center"
       spacing={{ base: 8, md: 14 }}
       py={{ base: 20, md: 36 }}
+      px={{ base: 10 }}
       maxW="3xl"
     >
       <Heading>

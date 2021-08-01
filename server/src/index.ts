@@ -13,10 +13,20 @@ import { sendRefreshToken } from "./utils/sendRefreshToken";
 import { User } from "./entities/User";
 
 (async () => {
+
+  await createConnection({
+    type: "postgres",
+    url: process.env.DATABASE_URL,
+    logging: true,
+    synchronize: true,
+    // migrations: [path.join(__dirname, "./migrations/*")],
+    entities: [User],
+  });
+
   const app = express();
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -53,8 +63,6 @@ import { User } from "./entities/User";
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
-  await createConnection();
-
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [UserResolver]
@@ -64,7 +72,7 @@ import { User } from "./entities/User";
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  app.listen(4000, () => {
+  app.listen(process.env.PORT, () => {
     console.log("express server started!");
   });
 })();
