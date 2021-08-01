@@ -1,4 +1,4 @@
-import { ChakraProvider, Container, theme } from "@chakra-ui/react";
+import { ChakraProvider, Stack, theme } from "@chakra-ui/react";
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./Header";
@@ -8,16 +8,17 @@ const App: React.FC<{}> = () => {
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-        <Header
-          maxW="1200px"
-          margin="0 auto"
-        />
-        <Container
-          maxW="1200px"
-          centerContent
+        <Stack
+          height="100vh"
+          alignItems="center"
         >
+          <Header
+            maxW="6xl"
+            margin="0 auto"
+            width="100%"
+          />
           <Routes />
-        </Container>
+        </Stack>
       </BrowserRouter>
     </ChakraProvider>
   );

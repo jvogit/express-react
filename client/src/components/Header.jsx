@@ -1,4 +1,4 @@
-import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CloseIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Box, Button, Flex, Heading, Link, Stack, useDisclosure
@@ -33,7 +33,7 @@ const Header = (props) => {
       </Flex>
 
       <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
-        <HamburgerIcon/>
+        {isOpen ? <CloseIcon/> : <HamburgerIcon/>}
       </Box>
 
       <Stack
@@ -57,6 +57,7 @@ const Header = (props) => {
           as={RouterLink}
           to="/signup"
           variant="outline"
+          onClick={onClose}
           mr={2}
         >
           Sign up
@@ -65,6 +66,7 @@ const Header = (props) => {
           as={RouterLink}
           to="/login"
           variant="outline"
+          onClick={onClose}
         >
           Login
         </Button>
