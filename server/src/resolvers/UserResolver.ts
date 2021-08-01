@@ -5,7 +5,8 @@ import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "../types";
 import { createRefreshToken, createAccessToken } from "../utils/auth";
 import { sendRefreshToken } from "../utils/sendRefreshToken";
-import { UsernamePasswordInput } from "./UsernamePasswordInput";
+import { validateRequest } from "../utils/Validate";
+import { RegisterInput } from "./RegisterInput";
 
 @ObjectType()
 class FieldError {
@@ -35,6 +36,7 @@ class LoginResponse {
 
 @Resolver(User)
 export class UserResolver {
+
   @Query(() => User, { nullable: true })
   @UseMiddleware(isAuth)
   me(
@@ -50,12 +52,16 @@ export class UserResolver {
 
   @Mutation(() => UserResponse)
   async register(
-    @Arg("options") options: UsernamePasswordInput,
+    @Arg("options") options: RegisterInput,
   ) {
-    // validate input here
-    // email: valid email format
-    // usernames: alphanumeric with underscores allowed
+    const errors = validateRequest(options);
 
+    // if errors is not null then return it
+    if (errors) {
+      return { errors };
+    }
+
+    // hash the password
     const hashedPassword = await argon2.hash(options.password);
 
     try {
@@ -71,11 +77,22 @@ export class UserResolver {
     } catch (err) {
       console.log(err);
 
+      if (err.code === "23505") {
+        return {
+          errors: [
+            {
+              field: "usernameOrEmail",
+              message: "An account already exists with that username or email."
+            }
+          ]
+        };
+      }
+
       return {
         errors: [
           {
             field: "any",
-            message: "internal server error"
+            message: "Account cannot be created."
           }
         ]
       }
