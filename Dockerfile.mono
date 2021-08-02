@@ -37,7 +37,8 @@ RUN yarn build
 
 ENV NODE_ENV production
 ENV MONOLITHIC true
+ENV PORT 80
 
-EXPOSE 4000
+EXPOSE 80
 CMD [ "node", "dist/index.js" ]
 USER node
