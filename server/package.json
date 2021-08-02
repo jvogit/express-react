@@ -2,6 +2,7 @@
    "name": "server",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
+   "license": "MIT",
    "devDependencies": {
       "@types/argon2": "^0.15.0",
       "@types/cookie-parser": "^1.4.2",
@@ -30,6 +31,7 @@
       "typeorm": "0.2.34"
    },
    "scripts": {
-      "start": "nodemon --exec ts-node src/index.ts"
+      "start": "nodemon --exec ts-node src/index.ts",
+      "build": "tsc"
    }
 }

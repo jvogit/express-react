@@ -11,6 +11,7 @@ import { verify } from "jsonwebtoken";
 import { createAccessToken, createRefreshToken } from "./utils/auth";
 import { sendRefreshToken } from "./utils/sendRefreshToken";
 import { User } from "./entities/User";
+import path from "path";
 
 (async () => {
 
@@ -75,4 +76,14 @@ import { User } from "./entities/User";
   app.listen(process.env.PORT, () => {
     console.log("express server started!");
   });
+
+  // monolithic
+  if (process.env.MONOLITHIC) {
+    // serve React app
+    app.use(express.static(path.join(__dirname, "public")));
+    // match any other routes to the react app
+    app.get("*", (_, res) => {
+      res.sendFile(path.join(__dirname, "public", "index.html"));
+    });
+  }
 })();
